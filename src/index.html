@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2048 Cube</title>
+  <meta name="description" content="The famous 2048, except as a 3D cube.">
+  <meta name="author" content="Farhad Ghayour">
+
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  <script src="js/keyboard-input-manager.js"></script>
+  <script src="js/html-actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/cube.js"></script>
+  <script src="js/game-manager.js"></script>
+  <script src="js/application.js"></script>
+
+</head>
+<body>
+
+  <!--
+   * Basic instructions
+  -->
+  <div id='instructions'>
+    <h1>2048 Cube</h1>
+    <p>This is a work in progress and will have many more features optimizations to come (click here to see the list of  TODOs). That said, feel free to play the game; feedback is super welcome.</p>
+
+    <ul>
+      <li><b>WASD</b>: Flips the cube around</li>
+      <li><b>Arrows</b>: Move the cubes to either left, right, up, or down</li>
+      <li><b><</b>: Moves the cubes back (towards the back of the cube)</li>
+      <li><b>?</b>: Moves the cubes forward (towards the front of the cube)</li>
+    </ul>
+
+  </div>
+
+  <!--
+   * 2048 Cube
+  -->
+  <div id="container">
+    <div id="game-container">
+
+      <!--
+       * MAIN CUBE
+      -->
+      <div class="side side-left"></div>
+      <div class="side side-top"></div>
+      <div class="side side-right"></div>
+      <div class="side side-bottom"></div>
+      <div class="side side-front"></div>
+      <div class="side side-back"></div>
+
+      <!--
+       * MINI CUBES
+      -->
+      <div id="grid-container"></div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "2048-cube",
+  "version": "0.0.1",
+  "description": "An interactive 3D version of 2048, with HTML, CSS and JavaScript",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-data": "^1.2.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-util": "^3.0.4",
+    "gulp-webserver": "^0.9.0",
+    "opn": "^1.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FarhadG/2048-cube.git"
+  },
+  "keywords": [
+    "2048",
+    "html",
+    "css",
+    "javascript",
+    "game",
+    "3d"
+  ],
+  "author": "Farhad Ghayour",
+  "license": "MIT",
+  "homepage": "https://github.com/FarhadG/2048-cube"
+}

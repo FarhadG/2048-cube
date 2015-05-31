@@ -1,0 +1,88 @@
+/*==========  MISC HELPERS  ==========*/
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+}
+
+@mixin transition-property($args...) {
+  -webkit-transition-property: $args;
+  -moz-transition-property: $args;
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+}
+
+@mixin animation-fill-mode($str) {
+  -webkit-animation-fill-mode: #{$str};
+  -moz-animation-fill-mode: #{$str};
+}
+
+
+/*==========  EXPONENTIAL HELPERS  ==========*/
+
+@function exponent($base, $exponent) {
+  $value: $base;
+
+  @if $exponent > 1 {
+    @for $i from 2 through $exponent {
+      $value: $value * $base;
+    }
+  }
+
+  @if $exponent < 1 {
+    @for $i from 0 through -$exponent {
+      $value: $value / $base;
+    }
+  }
+
+  @return $value;
+}
+
+@function pow($base, $exponent) {
+  @return exponent($base, $exponent);
+}
+
+
+/*==========  CUBE GENERATOR  ==========*/
+
+$side-name:   left, top, right, bottom, front, back;
+$side-angles: rotate3d(0,1,0,-90deg),
+              rotate3d(1,0,0,90deg),
+              rotate3d(0,1,0,90deg),
+              rotate3d(1,0,0,-90deg),
+              rotate3d(1,0,0,0deg),
+              rotate3d(1,0,0,180deg);
+
+@mixin cubeGenerator($main) {
+  @for $i from 1 through 6 {
+    @if ($main) {
+      .side-#{nth($side-name, $i)} {
+        -webkit-transform: nth($side-angles, $i) translate3d(0,0,$game-size/2);
+      }
+    } @else {
+      .cube-#{nth($side-name, $i)} {
+        -webkit-transform: nth($side-angles, $i) translate3d(0,0,$cube-size/2);
+        position: absolute;
+        border: $cube-border;
+      }
+    }
+  }
+}

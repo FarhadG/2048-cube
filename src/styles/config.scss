@@ -1,0 +1,24 @@
+/*==========  VARIABLES  ==========*/
+
+$perspective: 1000;
+$perspective-origin: 1000px -200px;
+
+$game-size: 400px;
+$cubes-per-row: 4;
+
+$cube-size: $game-size / $cubes-per-row;
+$cube-color: #eee4da;
+$cube-gold-color: #edc22e;
+$cube-gold-glow-color: lighten($cube-gold-color, 15%);
+$cube-border-color: darken($cube-color, 50%);
+$cube-border: 1px solid $cube-border-color;
+
+$text-color: #776E65;
+$bright-text-color: #f9f6f2;
+
+$side-background-color: rgba(0,0,0,0.04);
+$side-border: 1px solid lighten($cube-border-color, 20%);
+
+$transition-speed: 100ms;
+
+$background: #faf8ef;

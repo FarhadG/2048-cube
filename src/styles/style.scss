@@ -1,0 +1,174 @@
+/*==========  GENERAL  ==========*/
+
+html, body {
+  background: $background;
+  color: $text-color;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  -webkit-backface-visibility: hidden !important;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+*::selection {
+  background-color: transparent;
+}
+
+#game-container {
+  height: $game-size;
+  width: $game-size;
+  margin: 0 auto;
+  position: relative;
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+#game-container, .cube {
+  -webkit-transition: -webkit-transform 100ms linear;
+  -webkit-transform-style: preserve-3d;
+}
+
+#instructions {
+  width: 500px;
+  margin: auto;
+  margin-top: 75px;
+  margin-bottom: 100px;
+}
+
+#instructions h1 {
+  margin-bottom: 0px;
+}
+
+
+/*==========  CUBE POSITIONING  ==========*/
+
+@mixin cubePositioning() {
+  @for $x from 0 through ($cubes-per-row - 1) {
+    @for $y from 0 through ($cubes-per-row - 1) {
+      @for $z from 0 through ($cubes-per-row - 1) {
+        &.cube-position-#{$x}-#{$y}-#{$z} {
+          position: absolute;
+          left: $cube-size * $x;
+          top: $cube-size * $y;
+          -webkit-transform: translate3d(0,0,#{($cube-size+$cube-size/2)-$z * $cube-size});
+        }
+      }
+    }
+  }
+}
+
+
+/*==========  MAIN CUBE SIDE  ==========*/
+
+@include cubeGenerator(true);
+
+.side {
+  height: $game-size;
+  width: $game-size;
+  position: absolute;
+  border: $side-border;
+  background: $side-background-color;
+}
+
+
+/*==========  MINI CUBES  ==========*/
+
+@include cubeGenerator(false);
+
+.cube {
+  width: $cube-size;
+  height: $cube-size;
+
+  text-align: center;
+  line-height: $cube-size + 10px;
+  font-weight: bold;
+  z-index: 10;
+
+  @include transition($transition-speed ease-in-out);
+  @include transition-property(all);
+
+  @include cubePositioning();
+}
+
+
+/*==========  CUBE VALUE  ==========*/
+
+$base: 2;
+$exponent: 1;
+$limit: 11;
+
+$special-colors: false false, // 2
+                 false false, // 4
+                 #f78e48 true, // 8
+                 #fc5e2e true, // 16
+                 #ff3333 true, // 32
+                 #ff0000 true, // 64
+                 false true, // 128
+                 false true, // 256
+                 false true, // 512
+                 false true, // 1024
+                 false true; // 2048
+
+@while $exponent <= $limit {
+  $power: pow($base, $exponent);
+  $gold-percent: ($exponent - 1) / ($limit - 1) * 100;
+  $gold-text-percent: min($exponent + 2, $limit) / $limit * 100;
+  $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
+
+  .cube-#{$power} > .cube {
+    $mixed-background: mix($cube-gold-color, $cube-color, $gold-percent);
+
+    $nth-color: nth($special-colors, $exponent);
+    $special-background: nth($nth-color, 1);
+    $bright-color: nth($nth-color, 2);
+
+    @if $special-background {
+      $mixed-background: mix($special-background, $mixed-background, 55%);
+    }
+
+    @if $bright-color {
+      color: $bright-text-color;
+    }
+
+    background: $mixed-background;
+
+    $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
+    box-shadow: 0 0 30px 10px rgba($cube-gold-glow-color, $glow-opacity / 1.8);
+
+    @if $power >= 1000 {
+      font-size: 35px;
+    } @else if $power >= 100 and $power < 1000 {
+      font-size: 45px;
+    } @else {
+      font-size: 55px;
+    }
+  }
+
+  $exponent: $exponent + 1;
+}
+
+
+/*==========  ANIMATIONS  ==========*/
+
+
+@include keyframes(appear) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.cube-new, .cube-merged {
+  @include animation(appear $transition-speed ease $transition-speed);
+  @include animation-fill-mode(both);
+}
+
+.cube-merged {
+  z-index: 20;
+}
+
