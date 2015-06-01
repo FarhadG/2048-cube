@@ -9,7 +9,7 @@ That said, I may be doing a tutorial, along with the same game using WebGL, for 
 
 ## Demo
 
-Click for a live demo: <a href="http://farhadg.github.io/2048-cube/" target="_blank">2048 Cube</a>.
+Click for a live demo: <a href="http://farhadg.github.io/2048-cube/dist/" target="_blank">2048 Cube</a>.
 
 ## Installation
 
