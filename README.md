@@ -9,7 +9,7 @@ That said, I may be doing a tutorial, along with the same game using WebGL, for 
 
 ## Demo
 
-Click for a live demo: <a href="http://farhadg.github.io/2048-cube/dist/" target="_blank">2048 Cube</a>.
+Check out the live demo: <a href="http://farhadg.github.io/2048-cube/dist/" target="_blank">2048 Cube</a>.
 
 ## Installation
 
@@ -37,18 +37,8 @@ Additionally, `npm run start` provides you with live reloading and compiling of 
 
 I'll be adding more meshing features; that said, if you'd like a feature, let me know so that I'll try and implement it into future updates.
 
-
-Quaternions
-- It's currently using Euler rotations, hence, Quaternions will help with intuitive rotations.
-
-Gesture Support
-- Add touch and intuitive gesture support.
-
-Mobile Support
-- Make the game responsiveness to various resolutions.
-
-Optimizations
-- There are optimizations in the pipeline for faster traversals and data structures.
-
-Game Mechanics
-- Add scoring, leaderboards and other various game mechanics.
+- Quaternions: It's currently using Euler rotations, hence, Quaternions will help with intuitive rotations.
+- Gesture Support: Add touch and intuitive gesture support.
+- Mobile Support: Make the game responsiveness to various resolutions.
+- Optimizations: There are optimizations in the pipeline for faster traversals and data structures.
+- Game Mechanics: Add scoring, leaderboards and other various game mechanics.
