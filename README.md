@@ -1,4 +1,4 @@
-2048 Cube
+# 2048 Cube
 > An interactive 3D cube version of 2048 with CSS3 animations
 
 ---
