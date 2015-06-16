@@ -1,7 +1,7 @@
 2048 Cube
-====
+> An interactive 3D cube version of 2048 with CSS3 animations
 
-An interactive 3D cube version of 2048 with CSS3 animations.
+---
 
 No jQuery. No HTML5 Canvas. No JavaScript animations.
 
@@ -15,7 +15,7 @@ Check out the live demo: <a href="http://farhadg.github.io/2048-cube/dist/" targ
 
 You can simply fork or clone (download); then follow the given commands.
 
-```
+```bash
   $ git clone https://github.com/FarhadG/2048-cube.git
   $ npm install
   $ npm run start
