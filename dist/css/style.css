@@ -43,8 +43,7 @@ a {
   background: transparent; }
   a:focus {
     outline: thin dotted; }
-  a:hover,
-  a:active {
+  a:hover, a:active {
     outline: 0; }
 
 h1 {
@@ -100,8 +99,7 @@ pre {
 q {
   quotes: "\201C" "\201D" "\2018" "\2019"; }
 
-q:before,
-q:after {
+q:before, q:after {
   content: '';
   content: none; }
 
@@ -157,7 +155,8 @@ select {
   text-transform: none; }
 
 button,
-html input[type="button"], input[type="reset"],
+html input[type="button"],
+input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
   cursor: pointer; }
@@ -183,12 +182,10 @@ input[type="search"] {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box; }
-  input[type="search"]::-webkit-search-cancel-button,
-  input[type="search"]::-webkit-search-decoration {
+  input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none; }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type="checkbox"], input[type="radio"] {
   box-sizing: border-box;
   padding: 0; }
 
@@ -629,49 +626,49 @@ html, body {
   font-size: 55px; }
 
 .cube-4 > .cube {
-  background: #ede0c8;
+  background: #eee1c9;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0);
   font-size: 55px; }
 
 .cube-8 > .cube {
   color: #f9f6f2;
-  background: #f2b179;
+  background: #f3b27a;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0);
   font-size: 55px; }
 
 .cube-16 > .cube {
   color: #f9f6f2;
-  background: #f59563;
+  background: #f69664;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0);
   font-size: 55px; }
 
 .cube-32 > .cube {
   color: #f9f6f2;
-  background: #f67c5f;
+  background: #f77c5f;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.0793651);
   font-size: 55px; }
 
 .cube-64 > .cube {
   color: #f9f6f2;
-  background: #f65e3b;
+  background: #f75f3b;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.15873);
   font-size: 55px; }
 
 .cube-128 > .cube {
   color: #f9f6f2;
-  background: #edcf72;
+  background: #edd073;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.238095);
   font-size: 45px; }
 
 .cube-256 > .cube {
   color: #f9f6f2;
-  background: #edcc61;
+  background: #edcc62;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.31746);
   font-size: 45px; }
 
 .cube-512 > .cube {
   color: #f9f6f2;
-  background: #edc850;
+  background: #edc950;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.396825);
   font-size: 45px; }
 
