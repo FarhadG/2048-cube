@@ -201,7 +201,7 @@ html, body {
   -webkit-backface-visibility: hidden !important;
   height: 100%;
   width: 100%;
-  overflow: hidden; }
+  padding-bottom: 150px; }
 
 *::selection {
   background-color: transparent; }
