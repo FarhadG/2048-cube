@@ -25,6 +25,7 @@ KeyboardInputManager.prototype.listen = function() {
   var xAngle = 0, yAngle = 0, zAngle = 0;
 
   document.addEventListener('keydown', function(event) {
+    event.preventDefault();
     var keyCode = event.which;
     var keyPressed = this.keyMap(keyCode);
     var arrowKeyAction = null, rotateKeyAction = null; 
