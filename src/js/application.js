@@ -1,3 +1,8 @@
+import '../styles/main.scss';
+import KeyboardInputManager from './keyboard-input-manager.js';
+import HTMLActuator from './html-actuator.js';
+import GameManager from './game-manager.js';
+
 window.addEventListener('DOMContentLoaded', function() {
   window.requestAnimationFrame(function() {
     var manager = new GameManager(4, KeyboardInputManager, HTMLActuator);
@@ -19,5 +24,3 @@ window.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', resetContainer, true);
   }
 });
-
-

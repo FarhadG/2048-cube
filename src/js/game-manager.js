@@ -1,8 +1,11 @@
+import Grid from './grid.js';
+import Cube from './cube.js';
+
 var GameManager = function(size, InputManager, Actuator) {
   this.size         = size;
   this.inputManager = new InputManager();
   this.actuator     = new Actuator;
-  
+
   this.startCubes   = 2;
   this.grid         = new Grid(this.size);
 
@@ -30,7 +33,7 @@ GameManager.prototype.addRandomCube = function() {
   if (this.grid.cellsAvailable()) {
     var value = Math.random() < 0.9 ? 2 : 4;
     var cube = new Cube(this.grid.randomAvailableCell(), value);
-    
+
     this.grid.insertCube(cube);
   }
 };
@@ -162,3 +165,5 @@ GameManager.prototype.findFarthestPosition = function(cell, vector) {
     next: cell
   };
 };
+
+export default GameManager;

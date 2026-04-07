@@ -7,15 +7,6 @@
   <title>2048 Cube</title>
   <meta name="description" content="The famous 2048, except as a 3D cube.">
   <meta name="author" content="Farhad Ghayour">
-
-  <link href="css/style.css" rel="stylesheet" type="text/css">
-  <script src="js/keyboard-input-manager.js"></script>
-  <script src="js/html-actuator.js"></script>
-  <script src="js/grid.js"></script>
-  <script src="js/cube.js"></script>
-  <script src="js/game-manager.js"></script>
-  <script src="js/application.js"></script>
-
 </head>
 <body>
 
@@ -29,7 +20,7 @@
     <ul>
       <li><b>WASD</b>: Flips the cube around</li>
       <li><b>Arrows</b>: Move the cubes to either left, right, up, or down</li>
-      <li><b><</b>: Moves the cubes back (towards the back of the cube)</li>
+      <li><b>&lt;</b>: Moves the cubes back (towards the back of the cube)</li>
       <li><b>?</b>: Moves the cubes forward (towards the front of the cube)</li>
     </ul>
 
@@ -59,22 +50,6 @@
     </div>
   </div>
 
-  <!-- Repo Card -->
-  <script src="https://rawgit.com/FarhadG/repo-card/master/repo-card.min.js"></script>
-  <script>
-    RepoCard.configure({
-      repo: '2048-cube',
-      username: 'farhadg',
-      title: '2048 Cube',
-      subtitle: '@farhadg',
-      thumb: 'url(https://avatars0.githubusercontent.com/u/1647596?v=3&s=460)',
-      background: 'url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/dark_embroidery.png)',
-      info: '2048 Cube: Play your favorite game, 2048, but in 3D. This is all HTML & CSS. No Canvas. No WebGL. No tricks.',
-      position: {
-        top: 25,
-        right: 25
-      }
-    });
-  </script>
+  <script type="module" src="/src/js/application.js"></script>
 </body>
 </html>

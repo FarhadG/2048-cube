@@ -8,7 +8,7 @@ var Grid = function(size) {
 Grid.prototype.build = function() {
   for(var z = 0; z < this.size; z++) {
     this.cells[z] = [];
-    
+
     for (var x = 0; x < this.size; x++) {
       var row = this.cells[z][x] = [];
 
@@ -110,3 +110,5 @@ Grid.prototype.printGrid = function() {
 
   console.log(map, "\n\n");
 };
+
+export default Grid;

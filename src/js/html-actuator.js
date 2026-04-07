@@ -75,3 +75,5 @@ HTMLActuator.prototype.addCube = function(cell) {
 HTMLActuator.prototype.positionClass = function(position) {
   return "cube-position-" + position.x + "-" + position.y + "-" + position.z;
 };
+
+export default HTMLActuator;

@@ -1,10 +1,16 @@
+@use "sass:math";
+@use "sass:list";
+@use "sass:color";
+@use "config";
+@use "helpers";
+
 /*==========  GENERAL  ==========*/
 
 html, body {
-  background: $background;
-  color: $text-color;
+  background: config.$background;
+  color: config.$text-color;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
   height: 100%;
   width: 100%;
   padding-bottom: 150px;
@@ -15,19 +21,18 @@ html, body {
 }
 
 #game-container {
-  height: $game-size;
-  width: $game-size;
+  height: config.$game-size;
+  width: config.$game-size;
   margin: 0 auto;
   position: relative;
   cursor: default;
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
+  user-select: none;
 }
 
-#game-container, .cube {
-  -webkit-transition: -webkit-transform 100ms linear;
-  -webkit-transform-style: preserve-3d;
+#game-container, #grid-container, .cube {
+  transition: transform 100ms linear;
+  transform-style: preserve-3d;
 }
 
 #instructions {
@@ -45,15 +50,34 @@ html, body {
 /*==========  CUBE POSITIONING  ==========*/
 
 @mixin cubePositioning() {
-  @for $x from 0 through ($cubes-per-row - 1) {
-    @for $y from 0 through ($cubes-per-row - 1) {
-      @for $z from 0 through ($cubes-per-row - 1) {
+  @for $x from 0 through (config.$cubes-per-row - 1) {
+    @for $y from 0 through (config.$cubes-per-row - 1) {
+      @for $z from 0 through (config.$cubes-per-row - 1) {
         &.cube-position-#{$x}-#{$y}-#{$z} {
           position: absolute;
-          left: $cube-size * $x;
-          top: $cube-size * $y;
-          -webkit-transform: translate3d(0,0,#{($cube-size+$cube-size/2)-$z * $cube-size});
+          left: config.$cube-size * $x;
+          top: config.$cube-size * $y;
+          transform: translate3d(0,0,#{(config.$cube-size + math.div(config.$cube-size, 2)) - $z * config.$cube-size});
         }
+      }
+    }
+  }
+}
+
+
+/*==========  CUBE GENERATOR  ==========*/
+
+@mixin cubeGenerator($main) {
+  @for $i from 1 through 6 {
+    @if ($main) {
+      .side-#{list.nth(helpers.$side-name, $i)} {
+        transform: list.nth(helpers.$side-angles, $i) translate3d(0,0,math.div(config.$game-size, 2));
+      }
+    } @else {
+      .cube-#{list.nth(helpers.$side-name, $i)} {
+        transform: list.nth(helpers.$side-angles, $i) translate3d(0,0,math.div(config.$cube-size, 2));
+        position: absolute;
+        border: config.$cube-border;
       }
     }
   }
@@ -65,11 +89,11 @@ html, body {
 @include cubeGenerator(true);
 
 .side {
-  height: $game-size;
-  width: $game-size;
+  height: config.$game-size;
+  width: config.$game-size;
   position: absolute;
-  border: $side-border;
-  background: $side-background-color;
+  border: config.$side-border;
+  background: config.$side-background-color;
 }
 
 
@@ -78,16 +102,15 @@ html, body {
 @include cubeGenerator(false);
 
 .cube {
-  width: $cube-size;
-  height: $cube-size;
+  width: config.$cube-size;
+  height: config.$cube-size;
 
   text-align: center;
-  line-height: $cube-size + 10px;
+  line-height: config.$cube-size + 10px;
   font-weight: bold;
   z-index: 10;
 
-  @include transition($transition-speed ease-in-out);
-  @include transition-property(all);
+  transition: all config.$transition-speed ease-in-out;
 
   @include cubePositioning();
 }
@@ -112,30 +135,30 @@ $special-colors: false false, // 2
                  false true; // 2048
 
 @while $exponent <= $limit {
-  $power: pow($base, $exponent);
-  $gold-percent: ($exponent - 1) / ($limit - 1) * 100;
-  $gold-text-percent: min($exponent + 2, $limit) / $limit * 100;
-  $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
+  $power: helpers.pow($base, $exponent);
+  $gold-percent: math.percentage(math.div(($exponent - 1), ($limit - 1)));
+  $gold-text-percent: math.percentage(math.div(min($exponent + 2, $limit), $limit));
+  $glow-opacity: math.div(max($exponent - 4, 0), ($limit - 4));
 
   .cube-#{$power} > .cube {
-    $mixed-background: mix($cube-gold-color, $cube-color, $gold-percent);
+    $mixed-background: color.mix(config.$cube-gold-color, config.$cube-color, $gold-percent);
 
-    $nth-color: nth($special-colors, $exponent);
-    $special-background: nth($nth-color, 1);
-    $bright-color: nth($nth-color, 2);
+    $nth-color: list.nth($special-colors, $exponent);
+    $special-background: list.nth($nth-color, 1);
+    $bright-color: list.nth($nth-color, 2);
 
     @if $special-background {
-      $mixed-background: mix($special-background, $mixed-background, 55%);
+      $mixed-background: color.mix($special-background, $mixed-background, 55%);
     }
 
     @if $bright-color {
-      color: $bright-text-color;
+      color: config.$bright-text-color;
     }
 
     background: $mixed-background;
 
-    $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
-    box-shadow: 0 0 30px 10px rgba($cube-gold-glow-color, $glow-opacity / 1.8);
+    $glow-opacity: math.div(max($exponent - 4, 0), ($limit - 4));
+    box-shadow: 0 0 30px 10px rgba(config.$cube-gold-glow-color, math.div($glow-opacity, 1.8));
 
     @if $power >= 1000 {
       font-size: 35px;
@@ -152,8 +175,7 @@ $special-colors: false false, // 2
 
 /*==========  ANIMATIONS  ==========*/
 
-
-@include keyframes(appear) {
+@keyframes appear {
   0% {
     opacity: 0;
   }
@@ -163,12 +185,11 @@ $special-colors: false false, // 2
   }
 }
 
-.cube-new, .cube-merged {
-  @include animation(appear $transition-speed ease $transition-speed);
-  @include animation-fill-mode(both);
+.cube-new > .cube, .cube-merged > .cube {
+  animation: appear config.$transition-speed ease config.$transition-speed;
+  animation-fill-mode: both;
 }
 
 .cube-merged {
   z-index: 20;
 }
-

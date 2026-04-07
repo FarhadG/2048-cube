@@ -1,4 +1,5 @@
-@import "./reset";
-@import "./helpers";
-@import "./config";
-@import "./style";
+@use "fonts/clear-sans";
+@use "reset";
+@use "helpers";
+@use "config";
+@use "style";

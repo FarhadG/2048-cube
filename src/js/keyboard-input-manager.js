@@ -28,7 +28,7 @@ KeyboardInputManager.prototype.listen = function() {
     event.preventDefault();
     var keyCode = event.which;
     var keyPressed = this.keyMap(keyCode);
-    var arrowKeyAction = null, rotateKeyAction = null; 
+    var arrowKeyAction = null, rotateKeyAction = null;
 
     var modifiers = event.altKey || event.ctrlKey
                     event.metaKey || event.shiftKey;
@@ -51,11 +51,12 @@ KeyboardInputManager.prototype.listen = function() {
       xAngle = rotateKeyAction.newXAngle;
       yAngle = rotateKeyAction.newYAngle;
 
-      var newStyle = ["rotate3d(1,0,0,"+ xAngle +"deg)", 
-                      "rotate3d(0,1,0,"+ yAngle +"deg)", 
+      var newStyle = ["rotate3d(1,0,0,"+ xAngle +"deg)",
+                      "rotate3d(0,1,0,"+ yAngle +"deg)",
                       "rotate3d(0,0,1,"+ zAngle +"deg)"];
 
       gameContainer.style.webkitTransform = newStyle.join(' ');
+      gameContainer.style.transform = newStyle.join(' ');
     }
 
   }.bind(this), false);
@@ -125,7 +126,7 @@ KeyboardInputManager.prototype.rotateKeyModifier = function(keyCode, x, y, z) {
     68: 68, // d
     83: 83  // s
   };
-  
+
   var upsideDownModifier = {
     65: 68, // a
     87: 87, // w
@@ -163,7 +164,7 @@ KeyboardInputManager.prototype.rotateKeyAction = function(keyCode, x, y, z) {
     68: function() { y += 90; }, // d
     83: function() { x -= 90; }  // s
   };
-  
+
   var rotateAction = rotateKey[keyCode];
   rotateAction && rotateAction();
 
@@ -172,3 +173,5 @@ KeyboardInputManager.prototype.rotateKeyAction = function(keyCode, x, y, z) {
     newYAngle: y
   };
 };
+
+export default KeyboardInputManager;

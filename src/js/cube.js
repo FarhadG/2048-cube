@@ -19,3 +19,5 @@ Cube.prototype.updatePosition = function(position) {
   this.y = position.y;
   this.z = position.z;
 };
+
+export default Cube;
