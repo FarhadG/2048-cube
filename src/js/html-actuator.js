@@ -1,79 +1,54 @@
-var HTMLActuator = function() {
-  this.gameContainer = document.getElementById('grid-container');
-};
+const SIDE_NAMES = ['left', 'top', 'right', 'bottom', 'front', 'back'];
 
-HTMLActuator.prototype.actuate = function(grid) {
-  var self = this;
-  var grid = grid.cells;
+export default class HTMLActuator {
+  constructor() {
+    this.container = document.getElementById('grid-container');
+  }
 
-  window.requestAnimationFrame(function() {
-    self.clearContainer();
+  actuate(grid) {
+    requestAnimationFrame(() => {
+      this.container.replaceChildren();
 
-    for(var z = 0; z < grid.length; z++) {
-      var zGrid = grid[z];
-      for(var x = 0; x < zGrid.length; x++) {
-        for(var y = 0; y < zGrid[x].length; y++) {
-          var cell = zGrid[x][y];
-          if (cell) {
-            self.addCube(cell);
+      for (let z = 0; z < grid.cells.length; z++) {
+        for (let x = 0; x < grid.cells[z].length; x++) {
+          for (let y = 0; y < grid.cells[z][x].length; y++) {
+            const cell = grid.cells[z][x][y];
+            if (cell) this.#addCube(cell);
           }
         }
       }
+    });
+  }
+
+  #addCube(cell) {
+    const wrapper = document.createElement('div');
+    const position = cell.previousPosition ?? { x: cell.x, y: cell.y, z: cell.z };
+
+    wrapper.classList.add('cube', `cube-${cell.value}`, this.#positionClass(position));
+
+    for (const name of SIDE_NAMES) {
+      const face = document.createElement('div');
+      face.classList.add('cube', `cube-${name}`);
+      face.textContent = cell.value;
+      wrapper.appendChild(face);
     }
-  });
-};
 
+    this.container.appendChild(wrapper);
 
-HTMLActuator.prototype.clearContainer = function() {
-  while (this.gameContainer.firstChild) {
-    this.gameContainer.removeChild(this.gameContainer.firstChild);
-  }
-};
-
-
-HTMLActuator.prototype.addCube = function(cell) {
-  var self = this;
-
-  var cubeContainer = document.createElement('div');
-
-  var position = cell.previousPosition || { x: cell.x, y: cell.y, z: cell.z };
-  var positionClass = this.positionClass(position);
-
-  cubeContainer.classList.add('cube', 'cube-' + cell.value, positionClass);
-
-  var sideNames = ['left', 'top', 'right', 'bottom', 'front', 'back'];
-
-  for(var i = 0; i < 6; i++) {
-    var cubeSide = document.createElement('div');
-    cubeSide.classList.add('cube', 'cube-' + sideNames[i]);
-    cubeSide.textContent = cell.value;
-    cubeContainer.appendChild(cubeSide);
+    if (cell.previousPosition) {
+      requestAnimationFrame(() => {
+        wrapper.classList.remove(this.#positionClass(position));
+        wrapper.classList.add(this.#positionClass(cell));
+      });
+    } else if (cell.mergedFrom) {
+      wrapper.classList.add('cube-merged');
+      cell.mergedFrom.forEach((merged) => this.#addCube(merged));
+    } else {
+      wrapper.classList.add('cube-new');
+    }
   }
 
-  this.gameContainer.appendChild(cubeContainer);
-
-  if (cell.previousPosition) {
-    window.requestAnimationFrame(function() {
-      cubeContainer.classList.remove(cubeContainer.classList[2]);
-      cubeContainer.classList.add(self.positionClass({
-        x: cell.x,
-        y: cell.y,
-        z: cell.z
-      }));
-    });
-  } else if (cell.mergedFrom) {
-    cubeContainer.classList.add('cube-merged');
-    cell.mergedFrom.forEach(function(merged) {
-      self.addCube(merged);
-    });
-  } else {
-    cubeContainer.classList.add('cube-new');
+  #positionClass({ x, y, z }) {
+    return `cube-position-${x}-${y}-${z}`;
   }
-};
-
-
-HTMLActuator.prototype.positionClass = function(position) {
-  return "cube-position-" + position.x + "-" + position.y + "-" + position.z;
-};
-
-export default HTMLActuator;
+}
