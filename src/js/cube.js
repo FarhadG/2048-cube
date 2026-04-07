@@ -1,23 +1,20 @@
-var Cube = function(position, value) {
-  this.x     = position.x;
-  this.y     = position.y;
-  this.z     = position.z;
-  this.value = value || 2;
+export default class Cube {
+  constructor(position, value = 2) {
+    this.x = position.x;
+    this.y = position.y;
+    this.z = position.z;
+    this.value = value;
+    this.previousPosition = null;
+    this.mergedFrom = null;
+  }
 
-  this.previousPosition = null;
-  this.mergedFrom = null;
-};
+  savePosition() {
+    this.previousPosition = { x: this.x, y: this.y, z: this.z };
+  }
 
-
-Cube.prototype.savePosition = function () {
-  this.previousPosition = { x: this.x, y: this.y, z: this.z };
-};
-
-
-Cube.prototype.updatePosition = function(position) {
-  this.x = position.x;
-  this.y = position.y;
-  this.z = position.z;
-};
-
-export default Cube;
+  updatePosition({ x, y, z }) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+}
