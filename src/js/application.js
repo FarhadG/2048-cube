@@ -1,4 +1,4 @@
-import '../styles/main.scss';
+import '../styles/main.css';
 import KeyboardInputManager from './keyboard-input-manager.js';
 import HTMLActuator from './html-actuator.js';
 import GameManager from './game-manager.js';
