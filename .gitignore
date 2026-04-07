@@ -4,3 +4,4 @@ dist/
 .idea/
 *.log
 .worktrees/
+docs/
