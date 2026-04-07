@@ -1,114 +1,72 @@
-var Grid = function(size) {
-  this.size = size;
-  this.cells = [];
-  this.build();
-};
+export default class Grid {
+  constructor(size) {
+    this.size = size;
+    this.cells = this.#build();
+  }
 
+  #build() {
+    return Array.from({ length: this.size }, () =>
+      Array.from({ length: this.size }, () =>
+        Array.from({ length: this.size }, () => null)
+      )
+    );
+  }
 
-Grid.prototype.build = function() {
-  for(var z = 0; z < this.size; z++) {
-    this.cells[z] = [];
-
-    for (var x = 0; x < this.size; x++) {
-      var row = this.cells[z][x] = [];
-
-      for (var y = 0; y < this.size; y++) {
-        row.push(null);
+  eachCell(callback) {
+    for (let z = 0; z < this.size; z++) {
+      for (let x = 0; x < this.size; x++) {
+        for (let y = 0; y < this.size; y++) {
+          callback(x, y, z, this.cells[z][x][y]);
+        }
       }
     }
   }
-};
 
-
-Grid.prototype.randomAvailableCell = function() {
-  var cells = this.availableCells();
-
-  if (cells.length) {
-    var randomPosition = Math.floor(Math.random() * cells.length);
-    return cells[randomPosition];
+  availableCells() {
+    const cells = [];
+    this.eachCell((x, y, z, cube) => {
+      if (!cube) cells.push({ x, y, z });
+    });
+    return cells;
   }
-};
 
-
-Grid.prototype.availableCells = function() {
-  var cells = [];
-
-  this.eachCell(function(x, y, z, cube) {
-    if (!cube) {
-      cells.push({ x: x, y: y, z: z });
-    }
-  });
-
-  return cells;
-};
-
-
-Grid.prototype.eachCell = function(cb) {
-  for(var z = 0; z < this.size; z++) {
-    for(var x = 0; x < this.size; x++) {
-      for(var y = 0; y < this.size; y++) {
-        cb(x, y, z, this.cells[z][x][y]);
-      }
+  randomAvailableCell() {
+    const cells = this.availableCells();
+    if (cells.length) {
+      return cells[Math.floor(Math.random() * cells.length)];
     }
   }
-};
 
+  cellsAvailable() {
+    return this.availableCells().length > 0;
+  }
 
-Grid.prototype.cellsAvailable = function() {
-  return !!this.availableCells().length;
-};
+  cellAvailable(cell) {
+    return !this.cellOccupied(cell);
+  }
 
+  cellOccupied(cell) {
+    return !!this.cells[cell.z][cell.x][cell.y];
+  }
 
-Grid.prototype.cellAvailable = function(cell) {
-  return !this.cellOccupied(cell);
-};
-
-
-Grid.prototype.cellOccupied = function(cell) {
-  return !!this.cells[cell.z][cell.x][cell.y];
-};
-
-
-Grid.prototype.cellContent = function(cell) {
-  if (this.withinBounds(cell)) {
-    return this.cells[cell.z][cell.x][cell.y];
-  } else {
+  cellContent(cell) {
+    if (this.withinBounds(cell)) {
+      return this.cells[cell.z][cell.x][cell.y];
+    }
     return null;
   }
-};
 
+  insertCube(cube) {
+    this.cells[cube.z][cube.x][cube.y] = cube;
+  }
 
-Grid.prototype.insertCube = function(cube) {
-  this.cells[cube.z][cube.x][cube.y] = cube;
-};
+  removeCube(cube) {
+    this.cells[cube.z][cube.x][cube.y] = null;
+  }
 
-
-Grid.prototype.removeCube = function(cube) {
-  this.cells[cube.z][cube.x][cube.y] = null;
-};
-
-
-Grid.prototype.withinBounds = function(position) {
-  return position.x >= 0 && position.x < this.size &&
-         position.y >= 0 && position.y < this.size &&
-         position.z >= 0 && position.z < this.size;
-};
-
-
-Grid.prototype.printGrid = function() {
-  var map = this.cells.map(function(zGrid) {
-    return zGrid.map(function(row) {
-      return row.map(function(cell) {
-        if (cell && cell.value) {
-          return "x:" + cell.x + ",y:" + cell.y + ",z:" + cell.z;
-        } else {
-          return "-";
-        }
-      });
-    });
-  }).join('\n_______________________________\n');
-
-  console.log(map, "\n\n");
-};
-
-export default Grid;
+  withinBounds({ x, y, z }) {
+    return x >= 0 && x < this.size &&
+           y >= 0 && y < this.size &&
+           z >= 0 && z < this.size;
+  }
+}

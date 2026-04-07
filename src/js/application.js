@@ -1,26 +1,16 @@
-import '../styles/main.scss';
+import '../styles/main.css';
 import KeyboardInputManager from './keyboard-input-manager.js';
 import HTMLActuator from './html-actuator.js';
 import GameManager from './game-manager.js';
 
-window.addEventListener('DOMContentLoaded', function() {
-  window.requestAnimationFrame(function() {
-    var manager = new GameManager(4, KeyboardInputManager, HTMLActuator);
-  });
+const container = document.getElementById('container');
 
-  var container = document.getElementById('container');
+function updatePerspective() {
+  container.style.perspective = '1000px';
+  container.style.perspectiveOrigin = `${window.innerWidth / 2}px -270px`;
+}
 
-  function resetContainer() {
-    container.style.perspective = '1000px';
-    container.style.perspectiveOrigin = (window.innerWidth / 2) + 'px -270px';
-  }
+updatePerspective();
+window.addEventListener('resize', updatePerspective);
 
-  resetContainer();
-
-  if (window.attachEvent) {
-    window.attachEvent('onresize', resetContainer);
-  }
-  else if (window.addEventListener) {
-    window.addEventListener('resize', resetContainer, true);
-  }
-});
+new GameManager(4, KeyboardInputManager, HTMLActuator);
