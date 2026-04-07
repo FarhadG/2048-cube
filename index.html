@@ -1,52 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>2048 Cube</title>
   <meta name="description" content="The famous 2048, except as a 3D cube.">
   <meta name="author" content="Farhad Ghayour">
 </head>
 <body>
-
-  <!--
-   * Basic instructions
-  -->
-  <div id='instructions'>
-    <h1>2048 Cube (HTML, CSS)</h1>
-    <p>This is a work in progress and will have many more features & optimizations (<a href="https://github.com/FarhadG/2048-cube" target="_blank">click here</a>). That said, feel free to play the game; feedback is super welcome.</p>
-
+  <div id="instructions">
+    <h1>2048 Cube</h1>
+    <p>A 3D CSS-only version of 2048 (<a href="https://github.com/FarhadG/2048-cube" target="_blank" rel="noopener">GitHub</a>).</p>
     <ul>
-      <li><b>WASD</b>: Flips the cube around</li>
-      <li><b>Arrows</b>: Move the cubes to either left, right, up, or down</li>
-      <li><b>&lt;</b>: Moves the cubes back (towards the back of the cube)</li>
-      <li><b>?</b>: Moves the cubes forward (towards the front of the cube)</li>
+      <li><b>WASD</b> &mdash; Rotate the cube</li>
+      <li><b>Arrow keys</b> &mdash; Move cubes left / right / up / down</li>
+      <li><b>.</b> &mdash; Move cubes back</li>
+      <li><b>/</b> &mdash; Move cubes forward</li>
     </ul>
-
   </div>
 
-  <!--
-   * 2048 Cube
-  -->
   <div id="container">
     <div id="game-container">
-
-      <!--
-       * MAIN CUBE
-      -->
       <div class="side side-left"></div>
       <div class="side side-top"></div>
       <div class="side side-right"></div>
       <div class="side side-bottom"></div>
       <div class="side side-front"></div>
       <div class="side side-back"></div>
-
-      <!--
-       * MINI CUBES
-      -->
       <div id="grid-container"></div>
-
     </div>
   </div>
 
