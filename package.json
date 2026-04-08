@@ -1,5 +1,5 @@
 {
-  "name": "2048-cube",
+  "name": "2048-cubed-dom",
   "version": "1.0.0",
   "description": "An interactive 3D version of 2048, with HTML, CSS and JavaScript",
   "type": "module",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FarhadG/2048-cube.git"
+    "url": "https://github.com/FarhadG/2048-cubed-dom.git"
   },
   "keywords": [
     "2048",
@@ -22,7 +22,7 @@
   ],
   "author": "Farhad Ghayour",
   "license": "MIT",
-  "homepage": "https://github.com/FarhadG/2048-cube",
+  "homepage": "https://github.com/FarhadG/2048-cubed-dom",
   "devDependencies": {
     "vite": "^6.2.0"
   }

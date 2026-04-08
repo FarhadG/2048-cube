@@ -9,14 +9,14 @@ That said, I may be doing a tutorial, along with the same game using WebGL, for 
 
 ## Demo
 
-Check out the live demo: <a href="https://farhadg.github.io/2048-cube/" target="_blank">2048 Cube</a>.
+Check out the live demo: <a href="https://farhadg.github.io/2048-cubed-dom/" target="_blank">2048 Cube</a>.
 
 ## Installation
 
 You can simply fork or clone (download); then follow the given commands.
 
 ```bash
-  $ git clone https://github.com/FarhadG/2048-cube.git
+  $ git clone https://github.com/FarhadG/2048-cubed-dom.git
   $ npm install
   $ npm run start
 ```
